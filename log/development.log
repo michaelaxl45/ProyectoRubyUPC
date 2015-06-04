@@ -1,0 +1,94 @@
+  [1m[36m (70.4ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (76.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateRestaurants (20150604002135)
+  [1m[35m (8.0ms)[0m  CREATE TABLE `restaurants` (`id` int(11) auto_increment PRIMARY KEY, `restaurant_id` int(11), `name` varchar(255), `address` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604002135')
+  [1m[36m (4.0ms)[0m  [1mCOMMIT[0m
+Migrating to CreateMenus (20150604002837)
+  [1m[35m (39.8ms)[0m  CREATE TABLE `menus` (`id` int(11) auto_increment PRIMARY KEY, `menu_id` varchar(255), `dish_id` int(11), `total` int(11), `price` decimal, `restaurant_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604002837')
+  [1m[36m (4.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateCategories (20150604003041)
+  [1m[35m (47.7ms)[0m  CREATE TABLE `categories` (`id` int(11) auto_increment PRIMARY KEY, `category_id` int(11), `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (21.4ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604003041')
+  [1m[36m (3.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDishes (20150604003207)
+  [1m[35m (37.1ms)[0m  CREATE TABLE `dishes` (`id` int(11) auto_increment PRIMARY KEY, `dish_id` int(11), `name` varchar(255), `price` decimal, `category_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604003207')
+  [1m[36m (3.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateOrders (20150604003322)
+  [1m[35m (36.0ms)[0m  CREATE TABLE `orders` (`id` int(11) auto_increment PRIMARY KEY, `order_id` varchar(255), `menu_id` varchar(255), `price` decimal, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604003322')
+  [1m[36m (4.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateUsers (20150604003416)
+  [1m[35m (7.6ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `user_id` varchar(255), `password` varchar(255), `email` varchar(255), `phone` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20150604003416')
+  [1m[36m (4.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (6.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'categories'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `categories`
+  [1m[36m (0.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'dishes'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `dishes`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'menus'
+[0m
+  [1m[35m (0.3ms)[0m  SHOW CREATE TABLE `menus`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'orders'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `orders`
+  [1m[36m (0.5ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'restaurants'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `restaurants`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'perupedidos'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `users`
